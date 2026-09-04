@@ -31,7 +31,11 @@ CORS_ORIGINS = os.getenv(
     "CORS_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173"
 ).split(",")
 
-# Placeholder for a market-data provider API key (Alpha Vantage, Finnhub,
-# Twelve Data, etc). Left blank until we pick a provider -- Claude will ask
-# before this needs to be filled in.
-MARKET_DATA_API_KEY = os.getenv("MARKET_DATA_API_KEY", "")
+# Finnhub API key (https://finnhub.io/dashboard) -- used by app/market_data.py
+# to fetch live quotes. Set the real value in backend/.env (git-ignored),
+# never commit it.
+FINNHUB_API_KEY = os.getenv("FINNHUB_API_KEY", "")
+
+# Twelve Data API key (https://twelvedata.com) -- used as a volume-only
+# fallback, since Finnhub's free tier doesn't include volume for stocks.
+TWELVEDATA_API_KEY = os.getenv("TWELVEDATA_API_KEY", "")
