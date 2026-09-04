@@ -19,6 +19,13 @@
   text-align: center;
 }
 
+.identify-logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  margin: 0 auto 16px;
+}
+
 .identify-card h1 {
   font-size: 22px;
   margin: 0 0 8px;
@@ -269,4 +276,101 @@ button[type='submit']:disabled,
   margin-top: 10px;
   font-size: 12px;
   color: var(--text-muted);
+}
+
+/* --- Rank / comparison / direction accents --- */
+
+.top-pick {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+  background: rgba(79, 70, 229, 0.12);
+  padding: 3px 8px;
+  border-radius: 999px;
+  margin-bottom: 10px;
+}
+
+.pct-change .direction {
+  margin-right: 4px;
+  font-size: 11px;
+  vertical-align: 2px;
+}
+
+.compare-note {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* --- Loading skeleton --- */
+
+.digest-card.skeleton {
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton-line {
+  height: 12px;
+  border-radius: 6px;
+  background: var(--border);
+  margin-bottom: 10px;
+}
+
+.skeleton-title {
+  width: 35%;
+  height: 16px;
+}
+
+.skeleton-body {
+  width: 85%;
+}
+
+.skeleton-body.short {
+  width: 55%;
+  margin-bottom: 0;
+}
+
+.digest-card.skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.06),
+    transparent
+  );
+  animation: shimmer 1.4s infinite;
+}
+
+@keyframes shimmer {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+/* --- Header logo mark --- */
+
+.app-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: white;
+  flex-shrink: 0;
 }

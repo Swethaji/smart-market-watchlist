@@ -12,17 +12,24 @@ function formatVolume(volume) {
   return String(volume)
 }
 
-export default function DigestCard({ entry, onRemove }) {
+function formatPrice(price) {
+  return price === null || price === undefined ? null : `$${price.toFixed(2)}`
+}
+
+export default function DigestCard({ entry, rank, onRemove }) {
   const pctChange = entry.pct_change_since_last_check
   const isUp = pctChange !== null && pctChange !== undefined && pctChange > 0
   const isDown = pctChange !== null && pctChange !== undefined && pctChange < 0
+  const direction = isUp ? '▲' : isDown ? '▼' : ''
 
   return (
     <div className={`digest-card${entry.is_unusual_move ? ' unusual' : ''}`}>
+      {entry.is_unusual_move && rank === 0 && <div className="top-pick">Most notable</div>}
+
       <div className="digest-card-header">
         <span className="ticker">{entry.ticker}</span>
         {entry.current_price !== null && entry.current_price !== undefined && (
-          <span className="price">${entry.current_price.toFixed(2)}</span>
+          <span className="price">{formatPrice(entry.current_price)}</span>
         )}
         <button
           type="button"
@@ -35,9 +42,18 @@ export default function DigestCard({ entry, onRemove }) {
       </div>
 
       {pctChange !== null && pctChange !== undefined ? (
-        <div className={`pct-change ${isUp ? 'up' : isDown ? 'down' : ''}`}>
-          {formatPct(pctChange)} <span className="since">since you last looked</span>
-        </div>
+        <>
+          <div className={`pct-change ${isUp ? 'up' : isDown ? 'down' : ''}`}>
+            <span className="direction">{direction}</span>
+            {formatPct(pctChange)}
+            <span className="since">since you last looked</span>
+          </div>
+          {entry.price_at_last_check !== null && entry.price_at_last_check !== undefined && (
+            <div className="compare-note">
+              was {formatPrice(entry.price_at_last_check)} at your last check
+            </div>
+          )}
+        </>
       ) : (
         entry.note && <div className="note">{entry.note}</div>
       )}

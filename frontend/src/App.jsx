@@ -84,7 +84,15 @@ function App() {
   return (
     <div className="app-shell">
       <header className="app-header">
-        <h1>Smart Market Watchlist</h1>
+        <div className="app-title">
+          <span className="logo-mark" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M3 17l6-6 4 4 8-8" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M15 7h6v6" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </span>
+          <h1>Smart Market Watchlist</h1>
+        </div>
         <div className="header-right">
           <span className="user-email">{email}</span>
           <button type="button" className="link-btn" onClick={handleSwitchUser}>
@@ -99,7 +107,15 @@ function App() {
         {error && <p className="error-text">{error}</p>}
 
         {loading && digest.length === 0 ? (
-          <p className="muted">Loading your watchlist…</p>
+          <div className="digest-list">
+            {[0, 1].map((i) => (
+              <div key={i} className="digest-card skeleton" aria-hidden="true">
+                <div className="skeleton-line skeleton-title" />
+                <div className="skeleton-line skeleton-body" />
+                <div className="skeleton-line skeleton-body short" />
+              </div>
+            ))}
+          </div>
         ) : watchlist.length === 0 ? (
           <p className="muted">Your watchlist is empty. Add a ticker above to get started.</p>
         ) : (
@@ -111,10 +127,11 @@ function App() {
               </button>
             </div>
             <div className="digest-list">
-              {digest.map((entry) => (
+              {digest.map((entry, index) => (
                 <DigestCard
                   key={entry.ticker}
                   entry={entry}
+                  rank={index}
                   onRemove={() => handleRemove(itemIdByTicker[entry.ticker])}
                 />
               ))}
