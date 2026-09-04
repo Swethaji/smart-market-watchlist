@@ -34,21 +34,39 @@ smart-market-watchlist/
 - [x] Folder structure
 - [x] FastAPI skeleton with `/health`
 - [x] Database schema (User, WatchlistItem, PriceSnapshot, LastChecked)
-- [ ] Python dependencies installed (awaiting go-ahead)
-- [ ] Frontend scaffolded with Vite (awaiting go-ahead)
+- [x] Python dependencies installed (`backend/.venv`, verified `/health` responds and tables are created)
+- [x] Frontend scaffolded with Vite + React (`npm install` done, `npm run build` verified)
 - [ ] Market-data API key configured (awaiting choice of provider + key)
+- [ ] Pushed to GitHub (remote `origin` is set to https://github.com/Swethaji/smart-market-watchlist — push manually, see below)
 
-## Running the backend (once dependencies are installed)
+## Running the backend
 
 ```bash
 cd backend
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
+source .venv/bin/activate   # venv already created; if missing: python3 -m venv .venv
 uvicorn app.main:app --reload
 ```
 
 Then visit `http://127.0.0.1:8000/health` and `http://127.0.0.1:8000/docs`.
+
+## Running the frontend
+
+```bash
+cd frontend
+npm run dev
+```
+
+Vite will print a local URL (default `http://localhost:5173`), already allowed by the backend's CORS settings.
+
+## Pushing to GitHub
+
+The local repo already has `origin` pointed at
+`https://github.com/Swethaji/smart-market-watchlist`. Push from a machine
+with your own GitHub credentials:
+
+```bash
+git push -u origin main
+```
 
 ## Database schema
 
