@@ -21,6 +21,7 @@ from app.schemas import HealthResponse
 # created -- this import is what registers User/WatchlistItem/etc. with
 # Base.metadata.)
 from app import models  # noqa: F401
+from app.routers import users, watchlist
 
 app = FastAPI(
     title="Smart Market Watchlist API",
@@ -53,3 +54,7 @@ def on_startup() -> None:
 def health_check() -> HealthResponse:
     """Simple liveness check: if this responds, the API process is up."""
     return HealthResponse(status="ok", service="smart-market-watchlist-api")
+
+
+app.include_router(users.router)
+app.include_router(watchlist.router)
